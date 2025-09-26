@@ -1,59 +1,120 @@
-# ToDoAPI
-Crie uma API REST simples para gerenciamento de tarefas (to-do list).
-Funcionalidades mínimas:
+📝 To-Do List API
 
-Criar tarefa
+API REST simples para gerenciamento de tarefas (To-Do List).
+Permite criar, listar, atualizar e excluir tarefas.
 
-Endpoint: POST /tasks
+🚀 Tecnologias utilizadas
 
-Corpo: { "title": "Estudar Node.js", "description": "Ler documentação oficial" }
+Node.js – ambiente de execução JavaScript
 
-Listar tarefas
+Express.js – framework web para criar rotas HTTP
 
-Endpoint: GET /tasks
+SQLite – banco de dados leve e simples
 
-Deve retornar todas as tarefas em formato JSON.
+Sequelize – ORM para facilitar a manipulação do banco
 
-Buscar tarefa por ID
+Nodemon – ferramenta para reiniciar o servidor automaticamente em desenvolvimento
 
-Endpoint: GET /tasks/:id
+Postman/Insomnia – para testar os endpoints
 
-Atualizar tarefa
+📂 Estrutura de pastas
+to-do-api/
+│── node_modules/
+│── src/
+│   ├── models/
+│   │   └── Task.js
+│   ├── routes/
+│   │   └── tasks.js
+│   ├── database.js
+│   └── index.js
+│── .gitignore
+│── package.json
+│── README.md
 
-Endpoint: PUT /tasks/:id
+⚙️ Instalação
 
-Corpo: { "title": "...", "description": "...", "done": true }
+Clone o repositório:
 
-Excluir tarefa
+git clone https://github.com/seu-usuario/to-do-api.git
+cd to-do-api
 
-Endpoint: DELETE /tasks/:id
 
-Regras extras:
+Instale as dependências:
 
-Cada tarefa deve ter:
+npm install express sequelize sqlite3 nodemon
 
-id (gerado automaticamente)
 
-title
+Configure o package.json para rodar o servidor com nodemon:
 
-description
+"scripts": {
+  "dev": "nodemon src/index.js"
+}
 
-done (booleano, default = false)
 
-createdAt (data/hora de criação)
+Inicie o servidor:
 
-🛠️ Tecnologias
+npm run dev
 
-Linguagem: JavaScript (Node.js)
+🗂️ Modelo da Tarefa (Task)
 
-Framework Web: Express.js
+Cada tarefa possui:
 
-Banco de dados: SQLite (leve, simples, não precisa de setup complexo)
+id → gerado automaticamente
 
-ORM: Sequelize (facilita CRUD sem muito SQL na mão)
+title → título da tarefa
 
-Ferramentas:
+description → descrição da tarefa
 
-nodemon (para rodar o servidor em dev e reiniciar automaticamente)
+done → booleano (default: false)
 
-Postman ou Insomnia (para testar a API)
+createdAt → data/hora de criação
+
+🔗 Endpoints
+➕ Criar tarefa
+
+POST /tasks
+
+{
+  "title": "Estudar Node.js",
+  "description": "Ler documentação oficial"
+}
+
+📋 Listar todas as tarefas
+
+GET /tasks
+Retorna todas as tarefas em JSON.
+
+🔍 Buscar tarefa por ID
+
+GET /tasks/:id
+
+✏️ Atualizar tarefa
+
+PUT /tasks/:id
+
+{
+  "title": "Estudar Express",
+  "description": "Fazer mini projeto",
+  "done": true
+}
+
+❌ Excluir tarefa
+
+DELETE /tasks/:id
+
+🧪 Testando a API
+
+Use o Postman ou Insomnia para enviar requisições.
+Exemplo:
+
+POST http://localhost:3000/tasks
+
+GET http://localhost:3000/tasks
+
+📌 Próximos passos (opcionais)
+
+ Adicionar autenticação com JWT
+
+ Paginação de resultados (GET /tasks?page=1&limit=10)
+
+ Deploy em serviços como Heroku, Railway ou Render****
