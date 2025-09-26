@@ -7,7 +7,7 @@ Permite criar, listar, atualizar e excluir tarefas.
 
 ## 🚀 Tecnologias utilizadas  
 
-- **Node.js** – ambiente de execução JavaScript  
+- **Node.js** – ambiente de execução TypeScript
 - **Express.js** – framework web para criar rotas HTTP  
 - **SQLite** – banco de dados leve e simples  
 - **Sequelize** – ORM para facilitar a manipulação do banco  
@@ -23,11 +23,11 @@ to-do-api/
 │── node_modules/
 │── src/
 │   ├── models/
-│   │   └── Task.js
+│   │   └── Task.ts
 │   ├── routes/
-│   │   └── tasks.js
-│   ├── database.js
-│   └── index.js
+│   │   └── tasks.ts
+│   ├── database.ts
+│   └── index.ts
 │── .gitignore
 │── package.json
 │── README.md
