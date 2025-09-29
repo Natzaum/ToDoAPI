@@ -38,11 +38,14 @@
     // Recommended Options
     "strict": true,
     "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
-  "ts-node": { "transpileOnly": true }
+  "ts-node": { "transpileOnly": true },
+  "exclude": [
+    "eslint.config.mts"
+  ]
 }
