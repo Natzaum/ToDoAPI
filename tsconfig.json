@@ -44,5 +44,8 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
-  "ts-node": { "transpileOnly": true }
+  "ts-node": { "transpileOnly": true },
+  "exclude": [
+    "eslint.config.mts"
+  ]
 }
