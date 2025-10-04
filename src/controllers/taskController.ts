@@ -1,89 +1,56 @@
 import type { Request, Response, NextFunction } from "express";
-import taskRepository from "../repositories/taskRepository";
+import { TaskService } from "../services/taskService";
 
-async function getTaskById(req: Request, res: Response, next: NextFunction) {
-  try {
-    const id = req.params.id;
-    if (!id) {
-      res.status(400).json({ error: "Task ID is required" });
-      return;
-    }
-    const task = await taskRepository.getTaskById(id);
-    if (task) {
+const taskService = new TaskService();
+
+export class TaskController {
+  async getTaskById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = Number(req.params.id);
+      const task = await taskService.getTaskById(id);
       res.json(task);
-    } else {
-      res.status(404).json({ error: "Task not found" });
+    } catch (error) {
+      next(error);
     }
-  } catch (error) {
-    console.log(error);
-    next(error);
   }
-}
 
-async function getAllTasks(req: Request, res: Response, next: NextFunction) {
-  try {
-    const tasks = await taskRepository.getAllTasks();
-    res.json(tasks);
-  } catch (error) {
-    console.log(error);
-    next(error);
-  }
-}
-
-async function createTask(req: Request, res: Response, next: NextFunction) {
-  try {
-    const { title, description } = req.body;
-    if (!title) {
-      res.status(400).json({ error: "Title is required" });
-      return;
+  async getAllTasks(req: Request, res: Response, next: NextFunction) {
+    try {
+      const tasks = await taskService.getAllTasks();
+      res.json(tasks);
+    } catch (error) {
+      next(error);
     }
-    const newTask = await taskRepository.createTask(title, description);
-    res.status(201).json(newTask);
-  } catch (error) {
-    console.log(error);
-    next(error);
   }
-}
 
-async function updateTask(req: Request, res: Response, next: NextFunction) {
-  try {
-    const id = req.params.id;
-    const { title, description, completed } = req.body;
-    if (!id) {
-      res.status(400).json({ error: "Task ID is required" });
-      return;
+  async createTask(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { title, description } = req.body;
+      const task = await taskService.createTask(title, description);
+      res.status(201).json(task);
+    } catch (error) {
+      next(error);
     }
-    const updatedTask = await taskRepository.updateTask(Number(id), {
-      title,
-      description,
-      completed,
-    });
-    res.json(updatedTask);
-  } catch (error) {
-    console.log(error);
-    next(error);
   }
-}
 
-async function deleteTask(req: Request, res: Response, next: NextFunction) {
-  try {
-    const id = req.params.id;
-    if (!id) {
-      res.status(400).json({ error: "Task ID is required" });
-      return;
+  async updateTask(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = Number(req.params.id);
+      const updates = req.body;
+      const task = await taskService.updateTask(id, updates);
+      res.json(task);
+    } catch (error) {
+      next(error);
     }
-    await taskRepository.deleteTask(Number(id));
-    res.status(204).send();
-  } catch (error) {
-    console.log(error);
-    next(error);
+  }
+
+  async deleteTask(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = Number(req.params.id);
+      await taskService.deleteTask(id);
+      res.status(204).send();
+    } catch (error) {
+      next(error);
+    }
   }
 }
-
-export default {
-  getTaskById,
-  getAllTasks,
-  createTask,
-  updateTask,
-  deleteTask,
-};
